@@ -1,6 +1,6 @@
 'use server'
 
-import { put, head } from '@vercel/blob'
+import { put, head, del } from '@vercel/blob'
 import { writeFile, readFile, mkdir } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
@@ -34,6 +34,8 @@ export async function submitForm(data: FormSubmission) {
         if (existingBlob) {
           const response = await fetch(existingBlob.url)
           submissions = await response.json()
+          // Delete the old blob before writing new one
+          await del(existingBlob.url)
         }
       } catch (e) {
         // File doesn't exist yet, start with empty array
