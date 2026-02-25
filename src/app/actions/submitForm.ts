@@ -20,8 +20,8 @@ export async function submitForm(data: FormSubmission) {
       timestamp: new Date().toISOString()
     }
     
-    // Check if we're in Vercel environment (has BLOB_READ_WRITE_TOKEN)
-    const isVercel = !!process.env.BLOB_READ_WRITE_TOKEN
+    // Check if we're in Vercel environment
+    const isVercel = !!process.env.VERCEL
     
     if (isVercel) {
       // Use Vercel Blob for production
